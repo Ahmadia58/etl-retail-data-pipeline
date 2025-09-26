@@ -7,7 +7,7 @@ logging.basicConfig(
 )
 
 logging.info(f"Start of Transformation ")
-extracted=pd.read_csv('/Users/Ahmad/etl_project/extract/extracted_orders2.csv')
+extracted=pd.read_csv('/Users/Ahmad/etl_project/etl-retail-data-pipeline/extract/extracted_orders2.csv')
 extracted=extracted.dropna()
 extracted=extracted.drop_duplicates()
 extracted['order_date']=pd.to_datetime(extracted['order_date'])
@@ -26,7 +26,7 @@ def categorize_amount(amount):
 
 extracted['amount_category'] = extracted['amount'].apply(categorize_amount)
 extracted['tax']=extracted['amount']*.09
-extracted.to_csv("/Users/Ahmad/etl_project/transform/transformed_orders1.csv")
+extracted.to_csv("/Users/Ahmad/etl_project/etl-retail-data-pipeline/transform/transformed_orders1.csv")
 extracted = extracted[extracted['amount'] > 0]
 logging.info(f"After removing negative values: {len(extracted)}")
 if len(extracted[extracted['amount_category']=="High"])>150:
